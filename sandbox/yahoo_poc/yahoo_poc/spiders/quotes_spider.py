@@ -19,6 +19,7 @@ class YahooSpider(scrapy.Spider):
         urls = [
             "https://au.finance.yahoo.com/quote/CBA.AX/history/",
             "https://au.finance.yahoo.com/quote/NAB.AX/history/",
+            "https://au.finance.yahoo.com/quote/FBU.AX/history/",
         ]
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
