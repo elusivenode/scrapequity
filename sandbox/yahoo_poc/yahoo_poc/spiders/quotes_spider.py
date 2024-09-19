@@ -2,6 +2,7 @@ import scrapy, os, glob
 from pathlib import Path
 from datetime import datetime
 from bs4 import BeautifulSoup
+from scrapy_selenium import SeleniumRequest
 
 
 class YahooSpider(scrapy.Spider):
@@ -17,7 +18,7 @@ class YahooSpider(scrapy.Spider):
 
     def start_requests(self):
         urls = [
-            "https://au.finance.yahoo.com/quote/CBA.AX/history/",
+            "https://au.finance.yahoo.com/quote/CBA.AX/history/?period1=1577750400&period2=1726704000&interval=1d&filter=history&frequency=1d&includeAdjustedClose=true",
             "https://au.finance.yahoo.com/quote/NAB.AX/history/",
             "https://au.finance.yahoo.com/quote/FBU.AX/history/",
         ]
@@ -25,7 +26,7 @@ class YahooSpider(scrapy.Spider):
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
         }
         for url in urls:
-            yield scrapy.Request(url=url, headers=headers, callback=self.parse)
+            yield SeleniumRequest(url=url, headers=headers, callback=self.parse)
 
     def parse(self, response):
         page_details = response.url.split("/")
