@@ -6,6 +6,7 @@ from playwright.async_api import async_playwright
 from scrapy_playwright.page import PageMethod
 from playwright._impl._errors import TargetClosedError
 from scrapy.selector import Selector
+from datetime import datetime, timezone
 
 
 class ScrollScrapeSpiderSpider(scrapy.Spider):
@@ -21,33 +22,41 @@ class ScrollScrapeSpiderSpider(scrapy.Spider):
         os.remove(f)
 
     def start_requests(self):
-        url = "https://au.finance.yahoo.com/quote/CBA.AX/history/"
+
+        unix_epoch_start = int(datetime.strptime("2019-12-31","%Y-%m-%d").replace(tzinfo=timezone.utc).timestamp())
+        unix_epoch_end = int(datetime.strptime(datetime.now().strftime("%Y-%m-%d"),"%Y-%m-%d").replace(tzinfo=timezone.utc).timestamp())
+
+        date_range = f'?period1={unix_epoch_start}&period2={unix_epoch_end}&interval=1d&filter=history&frequency=1d&includeAdjustedClose=true'
+
+        urls = [f"https://au.finance.yahoo.com/quote/CBA.AX/history/{date_range}",
+                f"https://au.finance.yahoo.com/quote/NAB.AX/history/{date_range}",
+                f"https://au.finance.yahoo.com/quote/ANZ.AX/history/{date_range}"]
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
         }
-        yield scrapy.Request(
-            url,
-            headers=headers,
-            meta=dict(
-                playwright=True,
-                playwright_include_page=True,
-                playwright_page_methods=[PageMethod("wait_for_selector", "table")],
-            ),
-            callback=self.parse,
-            errback=self.errback,
-        )
+        for url in urls:
+            yield scrapy.Request(
+                url,
+                headers=headers,
+                meta=dict(
+                    playwright=True,
+                    playwright_include_page=True,
+                    playwright_page_methods=[PageMethod("wait_for_selector", "table")],
+                ),
+                callback=self.parse,
+                errback=self.errback,
+            )
 
     async def parse(self, response):
         page = response.meta["playwright_page"]
+        scroll_height = await page.evaluate('() => document.body.scrollHeight')
+
         try:
             last_position = await page.evaluate("window.scrollY")
 
             while True:
-                # scroll by 700 while not at the bottom
-                await page.evaluate("window.scrollBy(0, 700)")
-                await page.wait_for_timeout(
-                    750
-                )  # wait for 750ms for the request to complete
+                await page.evaluate(f"window.scrollBy(0, {scroll_height})")
+                await page.wait_for_timeout(100)
                 current_position = await page.evaluate("window.scrollY")
 
                 if current_position == last_position:
