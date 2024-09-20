@@ -16,7 +16,7 @@ UNWANTED_STRINGS = ["google", "gumgum", "doubleclick", "adservice", "ads", "anal
 WANTED_STRINGS = ["yahoo"]
 
 
-class QuotesJsScraperSpiderMiddleware:
+class PricesWithScrollSpiderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the spider middleware does not modify the
     # passed objects.
@@ -64,7 +64,7 @@ class QuotesJsScraperSpiderMiddleware:
         spider.logger.info("Spider opened: %s" % spider.name)
 
 
-class QuotesJsScraperDownloaderMiddleware:
+class PricesWithScrollDownloaderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the downloader middleware does not modify the
     # passed objects.

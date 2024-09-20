@@ -8,6 +8,6 @@
 from itemadapter import ItemAdapter
 
 
-class QuotesJsScraperPipeline:
+class PricesWithScrollPipeline:
     def process_item(self, item, spider):
         return item

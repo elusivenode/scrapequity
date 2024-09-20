@@ -31,53 +31,14 @@ PLAYWRIGHT_LAUNCH_OPTIONS = {
     "headless": False,
     "timeout": 60000,
 }
+BOT_NAME = "prices_with_scroll"
 
-BOT_NAME = "quotes_js_scraper"
-
-SPIDER_MODULES = ["quotes_js_scraper.spiders"]
-NEWSPIDER_MODULE = "quotes_js_scraper.spiders"
-
-DOWNLOAD_HANDLERS = {
-    "http": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
-    "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
-}
-
-TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
-
-UNWANTED_STRINGS = ["google", "gumgum", "doubleclick", "adservice", "ads", "analytics"]
-WANTED_STRINGS = ["yahoo"]
-
-# PLAYWRIGHT_ACCEPT_REQUEST_PREDICATE = lambda req: (
-#     # any(s in req.url for s in WANTED_STRINGS)
-#     # and not any(s in req.url for s in UNWANTED_STRINGS)
-#     # and req.resourceType in ["document", "xhr"]
-#     # and req.referrer == "https://au.finance.yahoo.com/quote/CBA.AX/history/"
-#     # and not any(s in req.url for s in UNWANTED_STRINGS)
-#     req.referrer
-#     == "https://au.finance.yahoo.com/quote/CBA.AX/history/"
-# )
-
-
-# # Define the predicate function
-# def accept_request_predicate(req):
-#     logging.debug(f"Checking request: {req.url}")
-#     logging.debug(f"Referrer: {req.referrer}")
-#     if any(s in req.url for s in WANTED_STRINGS):
-#         if not any(s in req.url for s in UNWANTED_STRINGS):
-#             if req.resourceType in ["document", "xhr"]:
-#                 if req.referrer not in ["https://ads.pubmatic.com", "https://blah"]:
-#                     logging.debug("Request accepted")
-#                     return True
-#     logging.debug("Request blocked")
-#     return False
-
-# Set default timeout for Playwright
-PLAYWRIGHT_DEFAULT_NAVIGATION_TIMEOUT = 60000  # 60 seconds
-PLAYWRIGHT_DEFAULT_TIMEOUT = 60000  # 60 seconds
+SPIDER_MODULES = ["prices_with_scroll.spiders"]
+NEWSPIDER_MODULE = "prices_with_scroll.spiders"
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-# USER_AGENT = 'quotes_js_scraper (+http://www.yourdomain.com)'
+# USER_AGENT = "prices_with_scroll (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -101,32 +62,32 @@ ROBOTSTXT_OBEY = True
 
 # Override the default request headers:
 # DEFAULT_REQUEST_HEADERS = {
-#   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-#   'Accept-Language': 'en',
+#    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+#    "Accept-Language": "en",
 # }
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 SPIDER_MIDDLEWARES = {
-    "quotes_js_scraper.middlewares.QuotesJsScraperSpiderMiddleware": 1,
+    "prices_with_scroll.middlewares.PricesWithScrollSpiderMiddleware": 1,
 }
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-    "quotes_js_scraper.middlewares.QuotesJsScraperDownloaderMiddleware": 1,
+    "prices_with_scroll.middlewares.PricesWithScrollDownloaderMiddleware": 1,
 }
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
 # EXTENSIONS = {
-#    'scrapy.extensions.telnet.TelnetConsole': None,
+#    "scrapy.extensions.telnet.TelnetConsole": None,
 # }
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 # ITEM_PIPELINES = {
-#    'quotes_js_scraper.pipelines.QuotesJsScraperPipeline': 300,
+#    "prices_with_scroll.pipelines.PricesWithScrollPipeline": 300,
 # }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -146,6 +107,19 @@ DOWNLOADER_MIDDLEWARES = {
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html#httpcache-middleware-settings
 # HTTPCACHE_ENABLED = True
 # HTTPCACHE_EXPIRATION_SECS = 0
-# HTTPCACHE_DIR = 'httpcache'
+# HTTPCACHE_DIR = "httpcache"
 # HTTPCACHE_IGNORE_HTTP_CODES = []
-# HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+# HTTPCACHE_STORAGE = "scrapy.extensions.httpcache.FilesystemCacheStorage"
+
+# Set settings whose default value is deprecated to a future-proof value
+REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
+TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
+FEED_EXPORT_ENCODING = "utf-8"
+
+DOWNLOAD_HANDLERS = {
+    "http": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
+    "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
+}
+
+PLAYWRIGHT_DEFAULT_NAVIGATION_TIMEOUT = 60000  # 60 seconds
+PLAYWRIGHT_DEFAULT_TIMEOUT = 60000  # 60 seconds

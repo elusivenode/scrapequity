@@ -8,8 +8,9 @@ from playwright._impl._errors import TargetClosedError
 from scrapy.selector import Selector
 
 
-class QuotesSpider(scrapy.Spider):
-    name = "quotes"
+class ScrollScrapeSpiderSpider(scrapy.Spider):
+
+    name = "scroll_n_scrape"
 
     directory = "output"
     if not os.path.exists(directory):
