@@ -13,24 +13,34 @@ class ScrollScrapeSpiderSpider(scrapy.Spider):
 
     name = "scroll_n_scrape"
 
-    directory = "output"
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-
-    files = glob.glob(os.path.join(directory, "*"))
-    for f in files:
-        os.remove(f)
-
     def start_requests(self):
+
+        directory = "output/scraped_prices"
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
+        files = glob.glob(os.path.join(directory, "*"))
+        for f in files:
+            os.remove(f)
+
+        asx300_file = self.get_latest_file("output/asx300")
+        asx300 = self.parse_first_column(asx300_file)[1:]
+        self.ticker_tidying(asx300)
+
+        print(asx300[:5])
 
         unix_epoch_start = int(datetime.strptime("2019-12-31","%Y-%m-%d").replace(tzinfo=timezone.utc).timestamp())
         unix_epoch_end = int(datetime.strptime(datetime.now().strftime("%Y-%m-%d"),"%Y-%m-%d").replace(tzinfo=timezone.utc).timestamp())
 
         date_range = f'?period1={unix_epoch_start}&period2={unix_epoch_end}&interval=1d&filter=history&frequency=1d&includeAdjustedClose=true'
+        url_template = "https://au.finance.yahoo.com/quote/{ticker}.AX/history{date_range}"
+        urls = []
+        for ticker in asx300[5:10]:
+            urls.append(url_template.format(ticker=ticker, date_range=date_range))
 
-        urls = [f"https://au.finance.yahoo.com/quote/CBA.AX/history/{date_range}",
-                f"https://au.finance.yahoo.com/quote/NAB.AX/history/{date_range}",
-                f"https://au.finance.yahoo.com/quote/ANZ.AX/history/{date_range}"]
+        # urls = [f"https://au.finance.yahoo.com/quote/CBA.AX/history/{date_range}",
+        #         f"https://au.finance.yahoo.com/quote/NAB.AX/history/{date_range}",
+        #         f"https://au.finance.yahoo.com/quote/ANZ.AX/history/{date_range}"]
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
         }
@@ -48,6 +58,7 @@ class ScrollScrapeSpiderSpider(scrapy.Spider):
             )
 
     async def parse(self, response):
+
         page = response.meta["playwright_page"]
         scroll_height = await page.evaluate('() => document.body.scrollHeight')
 
@@ -73,7 +84,7 @@ class ScrollScrapeSpiderSpider(scrapy.Spider):
         idx = page_details.index("quote")
         timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
         ticker = page_details[idx + 1]
-        directory = "output"
+        directory = "output/scraped_prices"
         filename = os.path.join(
             directory, f"yahoo-finance-history-{timestamp}-{ticker}.txt"
         )
@@ -115,3 +126,45 @@ class ScrollScrapeSpiderSpider(scrapy.Spider):
         self.logger.info(f"Spider closed: {reason}")
         if hasattr(self, "playwright_browser"):
             self.playwright_browser.close()
+
+    def get_latest_file(self, directory):
+        files = [os.path.join(directory, f) for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f))]
+        
+        # Sort files by modification time
+        files.sort(key=lambda x: os.path.getmtime(x), reverse=True)
+        
+        # Return the most recent file
+        return files[0] if files else None
+    
+    def parse_first_column(self, file_path):
+        first_column = []
+
+        with open(file_path, "r", encoding="utf-8") as file:
+            for line in file:
+                columns = line.strip().split("|")
+                if columns:
+                    first_column.append(columns[0])
+
+        return first_column
+
+    def change_list_value(self, my_list, index, new_value):
+        if 0 <= index < len(my_list):
+            my_list[index] = new_value
+        else:
+            self.logger.error("Index out of range")
+
+    def find_index(self, my_list, value):
+        try:
+            return my_list.index(value)
+        except ValueError:
+            return None
+
+    def ticker_tidying(self, asx300_l):
+        ticker = 'ABP'
+        idx = self.find_index(asx300_l, ticker)
+        if idx is not None:
+            self.change_list_value(asx300_l, idx, 'ABG')
+        else:
+            self.logger.error(f"Couldn't find {ticker} in the ASX300 list")
+
+        asx300_l.remove('ABC')

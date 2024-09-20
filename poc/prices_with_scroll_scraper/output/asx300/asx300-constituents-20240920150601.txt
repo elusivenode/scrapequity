@@ -1,0 +1,301 @@
+Code|Company
+A200|Betashares Australia 200 ETF
+A2M|The a2 Milk Company Ltd
+AAA|Betashares Australian High Interest Cash ETF
+ABC|Adbri Ltd
+ABP|Abacus Property Group
+AFI|Australian Foundation Investment Company Ltd
+AGL|AGL Energy Ltd
+AIA|Auckland International Airport Ltd
+AIZ|Air New Zealand Ltd
+ALD|Ampol Ltd
+ALL|Aristocrat Leisure Ltd
+ALQ|Als Ltd
+ALU|Altium Ltd
+ALX|Atlas Arteria
+AMC|Amcor Plc
+AMP|AMP Ltd
+ANN|Ansell Ltd
+ANZ|Australia and New Zealand Banking Group Ltd
+APA|APA Group
+APE|Eagers Automotive Ltd
+APT|Afterpay Ltd
+APX|Appen Ltd
+ARB|ARB Corporation Ltd
+ARF|Arena REIT
+ARG|Argo Investments Ltd
+AST|Ausnet Services Ltd
+ASX|ASX Ltd
+AUB|AUB Group Ltd
+AUI|Australian United Investment Company Ltd
+AVN|Aventus Group
+AWC|Alumina Ltd
+AX1|Accent Group Ltd
+AZJ|Aurizon Holdings Ltd
+BAP|Bapcor Ltd
+BEN|Bendigo and Adelaide Bank Ltd
+BET|Betmakers Technology Group Ltd
+BGA|Bega Cheese Ltd
+BHP|BHP Group Ltd
+BIN|Bingo Industries Ltd
+BKI|BKI Investment Company Ltd
+BKL|Blackmores Ltd
+BKW|Brickworks Ltd
+BLD|Boral Ltd
+BOQ|Bank of Queensland Ltd
+BPT|Beach Energy Ltd
+BRG|Breville Group Ltd
+BRN|Brainchip Holdings Ltd
+BSL|Bluescope Steel Ltd
+BWP|BWP Trust
+BXB|Brambles Ltd
+CAR|Carsales.com Ltd
+CBA|Commonwealth Bank of Australia
+CCL|Coca-Cola Amatil LtdSuspended
+CCP|Credit Corp Group Ltd
+CCX|City Chic Collective Ltd
+CDA|Codan Ltd
+CEN|Contact Energy Ltd
+CGC|Costa Group Holdings Ltd
+CGF|Challenger Ltd
+CHC|Charter Hall Group
+CHN|Chalice Mining Ltd
+CIA|Champion Iron Ltd
+CIM|Cimic Group Ltd
+CIP|Centuria Industrial REIT
+CKF|Collins Foods Ltd
+CLW|Charter Hall Long Wale REIT
+CMW|Cromwell Property Group
+CNI|Centuria Capital Group
+CNU|Chorus Ltd
+COF|Centuria Office REIT
+COH|Cochlear Ltd
+COL|Coles Group Ltd
+CPU|Computershare Ltd
+CQE|Charter Hall Social Infrastructure REIT
+CQR|Charter Hall Retail REIT
+CRN|Coronado Global Resources Inc
+CSL|CSL Ltd
+CSR|CSR Ltd
+CTD|Corporate Travel Management Ltd
+CUV|Clinuvel Pharmaceuticals Ltd
+CWN|Crown Resorts Ltd
+CWY|Cleanaway Waste Management Ltd
+DBI|Dalrymple Bay Infrastructure Ltd
+DDR|Dicker Data Ltd
+DEG|De Grey Mining Ltd
+DHG|Domain Holdings Australia Ltd
+DMP|Domino's PIZZA Enterprises Ltd
+DOW|Downer Edi Ltd
+DRR|Deterra Royalties Ltd
+DTL|Data#3 Ltd
+DUI|Diversified United Investment Ltd
+DXS|Dexus
+EBO|Ebos Group Ltd
+ELD|Elders Ltd
+EML|EML Payments Ltd
+ETHI|Betashares Global Sustainability Leaders ETF
+EVN|Evolution Mining Ltd
+EVT|Event Hospitality and Entertainment Ltd
+FAIR|Betashares Australian Sustainability Leaders ETF
+FBU|Fletcher Building Ltd
+FCL|Fineos Corporation Holdings Plc
+FLT|Flight Centre Travel Group Ltd
+FMG|Fortescue Metals Group Ltd
+FPH|Fisher & Paykel Healthcare Corporation Ltd
+GMA|Genworth Mortgage Insurance Australia Ltd
+GMG|Goodman Group
+GNC|Graincorp Ltd
+GNE|Genesis Energy Ltd
+GOLD|ETFs Metal Securities Australia Ltd
+GOR|Gold Road Resources Ltd
+GOZ|Growthpoint Properties Australia
+GPT|GPT Group
+GUD|G.U.D. Holdings Ltd
+GXY|Galaxy Resources Ltd
+HBRD|Betashares Active Australian Hybrids Fund (Managed Fund)
+HGH|Heartland Group Holdings Ltd
+HLS|Healius Ltd
+HM1|Hearts and Minds Investments Ltd
+HMC|Home Consortium
+HSN|Hansen Technologies Ltd
+HTA|Hutchison Telecommunications (Australia) Ltd
+HUB|HUB24 Ltd
+HVN|Harvey Norman Holdings Ltd
+HYGG|Hyperion GBL Growth Companies Fund (Managed Fund)
+IAF|Ishares Core Composite Bond ETF
+IAG|Insurance Australia Group Ltd
+IDX|Integral Diagnostics Ltd
+IEL|Idp Education Ltd
+IEM|Ishares MSCI Emerging Markets ETF
+IFL|IOOF Holdings Ltd
+IFT|Infratil Ltd
+IGO|IGO Ltd
+ILU|Iluka Resources Ltd
+INA|Ingenia Communities Group
+ING|Inghams Group Ltd
+IOO|Ishares Global 100 ETF
+IOZ|Ishares Core S&P/ASX 200 ETF
+IPH|IPH Ltd
+IPL|Incitec Pivot Ltd
+IRE|Iress Ltd
+ISX|Isignthis LtdSuspended
+IVC|Invocare Ltd
+IVV|Ishares S&P 500 ETF
+JBH|JB Hi-Fi Ltd
+JHG|Janus Henderson Group Plc
+JHX|James Hardie Industries Plc
+KGN|Kogan.com Ltd
+LEP|Ale Property Group
+LFG|Liberty Financial Group
+LFS|Latitude Group Holdings Ltd
+LIC|Lifestyle Communities Ltd
+LLC|Lendlease Group
+LNK|Link Administration Holdings Ltd
+LOV|Lovisa Holdings Ltd
+LSF|L1 Long Short Fund Ltd
+LYC|Lynas Rare EARTHS Ltd
+MAQ|Macquarie Telecom Group Ltd
+MCY|Mercury NZ Ltd
+MEZ|Meridian Energy Ltd
+MFF|MFF Capital Investments Ltd
+MFG|Magellan Financial Group Ltd
+MGF|Magellan Global Fund
+MGH|Maas Group Holdings Ltd
+MGOC|Magellan Global Fund (Open Class) (Managed Fund)
+MGR|Mirvac Group
+MGX|Mount Gibson Iron Ltd
+MIN|Mineral Resources Ltd
+MLT|Milton Corporation Ltd
+MND|Monadelphous Group Ltd
+MP1|Megaport Ltd
+MPL|Medibank Private Ltd
+MQG|Macquarie Group Ltd
+MSB|Mesoblast Ltd
+MTS|Metcash Ltd
+MVW|Vaneck Vectors Australian EQUAL Weight ETF
+MXT|MCP Master Income Trust
+NAB|National Australia Bank Ltd
+NAN|Nanosonics Ltd
+NCM|Newcrest Mining Ltd
+NDQ|Betashares Nasdaq 100 ETF
+NEA|Nearmap Ltd
+NEC|Nine Entertainment Co. Holdings Ltd
+NHC|New Hope Corporation Ltd
+NHF|Nib Holdings Ltd
+NIC|Nickel Mines Ltd
+NSR|National Storage REIT
+NST|Northern Star Resources Ltd
+NUF|Nufarm Ltd
+NWH|NRW Holdings Ltd
+NWL|Netwealth Group Ltd
+NWS|News Corporation
+NXL|NUIX Ltd
+NXT|NEXTDC Ltd
+OBL|Omni Bridgeway Ltd
+OCL|Objective Corporation Ltd
+OML|Ooh!Media Ltd
+ORA|Orora Ltd
+ORE|Orocobre Ltd
+ORG|Origin Energy Ltd
+ORI|Orica Ltd
+OSH|Oil Search Ltd
+OZL|OZ Minerals Ltd
+PBH|Pointsbet Holdings Ltd
+PDL|Pendal Group Ltd
+PDN|Paladin Energy Ltd
+PGH|Pact Group Holdings Ltd
+PLL|Piedmont Lithium Ltd
+PLS|Pilbara Minerals Ltd
+PME|Pro Medicus Ltd
+PMGOLD|Gold
+PMV|Premier Investments Ltd
+PNI|Pinnacle Investment Management Group Ltd
+PNV|Polynovo Ltd
+PPH|Pushpay Holdings Ltd
+PPT|Perpetual Ltd
+PRU|Perseus Mining Ltd
+PSI|PSC Insurance Group Ltd
+PTM|Platinum Asset Management Ltd
+QAN|Qantas Airways Ltd
+QBE|QBE Insurance Group Ltd
+QUAL|Vaneck Vectors MSCI World Ex Australia Quality ETF
+QUB|QUBE Holdings Ltd
+RBD|Restaurant Brands New Zealand Ltd
+RBL|Redbubble Ltd
+REA|REA Group Ltd
+REH|Reece Ltd
+RHC|Ramsay Health Care Ltd
+RIO|RIO Tinto Ltd
+RMC|Resimac Group Ltd
+RMD|Resmed Inc
+RMS|Ramelius Resources Ltd
+RRL|Regis Resources Ltd
+RWC|Reliance Worldwide Corporation Ltd
+S32|SOUTH32 Ltd
+SBM|ST Barbara Ltd
+SCG|Scentre Group
+SCP|Shopping Centres Australasia Property Group
+SDF|Steadfast Group Ltd
+SEK|Seek Ltd
+SFR|Sandfire Resources Ltd
+SGM|Sims Ltd
+SGP|Stockland
+SGR|The Star Entertainment Group Ltd
+SHL|Sonic Healthcare Ltd
+SIQ|Smartgroup Corporation Ltd
+SKC|Skycity Entertainment Group Ltd
+SKI|Spark Infrastructure Group
+SLK|Sealink Travel Group Ltd
+SLR|Silver Lake Resources Ltd
+SNZ|Summerset Group Holdings Ltd
+SOL|Washington H Soul Pattinson & Company Ltd
+SPK|Spark New Zealand Ltd
+STO|Santos Ltd
+STW|SPDR S&P/ASX 200 Fund
+SUL|Super Retail Group Ltd
+SUN|Suncorp Group Ltd
+SVW|Seven Group Holdings Ltd
+SYD|Sydney Airport
+TAH|Tabcorp Holdings Ltd
+TCL|Transurban Group
+TLS|Telstra Corporation Ltd
+TLT|Tilt Renewables Ltd
+TLX|TELIX Pharmaceuticals Ltd
+TNE|Technology One Ltd
+TPG|TPG Telecom Ltd
+TPW|Temple & Webster Group Ltd
+TWE|Treasury Wine Estates Ltd
+TYR|Tyro Payments Ltd
+UMG|United Malt Group Ltd
+URW|Unibail-Rodamco-Westfield
+UWL|Uniti Group Ltd
+VAF|Vanguard Australian Fixed Interest INDEX ETF
+VAP|Vanguard Australian Property Securities INDEX ETF
+VAS|Vanguard Australian Shares INDEX ETF
+VCX|Vicinity Centres
+VEA|Viva Energy Group Ltd
+VEU|Vanguard All-World Ex-US Shares INDEX ETF
+VGAD|Vanguard MSCI INDEX International Shares (Hedged) ETF
+VGS|Vanguard MSCI INDEX International Shares ETF
+VHY|Vanguard Australian Shares High Yield ETF
+VOC|Vocus Group Ltd
+VTS|Vanguard US Total Market Shares INDEX ETF
+VUK|Virgin Money Uk Plc
+WAM|WAM Capital Ltd
+WBC|Westpac Banking Corporation
+WEB|Webjet Ltd
+WES|Wesfarmers Ltd
+WGX|Westgold Resources Ltd
+WHC|Whitehaven Coal Ltd
+WLE|Wam Leaders Ltd
+WOR|Worley Ltd
+WOW|Woolworths Group Ltd
+WPL|Woodside Petroleum Ltd
+WPR|Waypoint REIT
+WTC|Wisetech Global Ltd
+XRO|Xero Ltd
+YAL|Yancoal Australia Ltd
+Z1P|ZIP Co Ltd
+ZEL|Z Energy Ltd
+ZIM|Zimplats Holdings Ltd
