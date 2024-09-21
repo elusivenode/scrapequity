@@ -11,7 +11,8 @@ import logging
 
 # Configure logging
 LOG_ENABLED = True
-LOG_LEVEL = "DEBUG"  # Set the log level to DEBUG to capture all log data
+#LOG_LEVEL = "DEBUG"  # Set the log level to DEBUG to capture all log data
+LOG_LEVEL = "INFO"  # capturing INFO, WARNING, ERROR, and CRITICAL messages
 LOG_FILE = "scrapy_log.txt"  # Specify the log file path
 LOG_FILE_APPEND = False
 
@@ -43,15 +44,15 @@ NEWSPIDER_MODULE = "prices_with_scroll.spiders"
 ROBOTSTXT_OBEY = True
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-CONCURRENT_REQUESTS = 32
+CONCURRENT_REQUESTS = 16
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
 # DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
-# CONCURRENT_REQUESTS_PER_DOMAIN = 16
-# CONCURRENT_REQUESTS_PER_IP = 16
+CONCURRENT_REQUESTS_PER_DOMAIN = 8
+CONCURRENT_REQUESTS_PER_IP = 8
 
 # Disable cookies (enabled by default)
 COOKIES_ENABLED = False

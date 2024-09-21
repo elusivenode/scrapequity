@@ -1,4 +1,4 @@
-import scrapy, os, glob
+import scrapy, os, glob, math
 from pathlib import Path
 from datetime import datetime
 from bs4 import BeautifulSoup
@@ -27,35 +27,37 @@ class ScrollScrapeSpiderSpider(scrapy.Spider):
         asx300 = self.parse_first_column(asx300_file)[1:]
         self.ticker_tidying(asx300)
 
-        print(asx300[:5])
-
         unix_epoch_start = int(datetime.strptime("2019-12-31","%Y-%m-%d").replace(tzinfo=timezone.utc).timestamp())
         unix_epoch_end = int(datetime.strptime(datetime.now().strftime("%Y-%m-%d"),"%Y-%m-%d").replace(tzinfo=timezone.utc).timestamp())
 
         date_range = f'?period1={unix_epoch_start}&period2={unix_epoch_end}&interval=1d&filter=history&frequency=1d&includeAdjustedClose=true'
         url_template = "https://au.finance.yahoo.com/quote/{ticker}.AX/history{date_range}"
-        urls = []
-        for ticker in asx300[5:10]:
-            urls.append(url_template.format(ticker=ticker, date_range=date_range))
-
-        # urls = [f"https://au.finance.yahoo.com/quote/CBA.AX/history/{date_range}",
-        #         f"https://au.finance.yahoo.com/quote/NAB.AX/history/{date_range}",
-        #         f"https://au.finance.yahoo.com/quote/ANZ.AX/history/{date_range}"]
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
         }
-        for url in urls:
-            yield scrapy.Request(
-                url,
-                headers=headers,
-                meta=dict(
-                    playwright=True,
-                    playwright_include_page=True,
-                    playwright_page_methods=[PageMethod("wait_for_selector", "table")],
-                ),
-                callback=self.parse,
-                errback=self.errback,
-            )
+
+        #asx300 = asx300[0:16]
+        for batch in range(0, len(asx300), 8):
+            urls = []
+            for ticker in asx300[batch:min(batch + 8, len(asx300))]:
+                urls.append(url_template.format(ticker=ticker, date_range=date_range))
+
+            self.logger.info(f"Processing stocks {batch} to {min(batch + 8 - 1, len(asx300) - 1)} in the ASX300")
+            for url in urls:
+                self.logger.info(f"Running: {url}")
+            for url in urls:
+                yield scrapy.Request(
+                    url,
+                    headers=headers,
+                    meta=dict(
+                        playwright=True,
+                        playwright_include_page=True,
+                        playwright_page_methods=[PageMethod("wait_for_selector", "table")],
+                    ),
+                    callback=self.parse,
+                    errback=self.errback,
+                )
+            
 
     async def parse(self, response):
 
@@ -115,7 +117,10 @@ class ScrollScrapeSpiderSpider(scrapy.Spider):
                     file.write("|".join(data) + "\n")  # Write data to the file
                 yield
 
-        self.log(f"Saved file {filename}")
+        self.logger.info(f"Saved file {filename}")
+        # Close the Playwright page
+        self.logger.info(f"Closing: {await page.title()}")
+        await page.close()
 
     async def errback(self, failure):
         self.logger.error(repr(failure))
@@ -160,11 +165,10 @@ class ScrollScrapeSpiderSpider(scrapy.Spider):
             return None
 
     def ticker_tidying(self, asx300_l):
+        # logs an error if the ticker is not found in the ASX300 list
         ticker = 'ABP'
         idx = self.find_index(asx300_l, ticker)
         if idx is not None:
             self.change_list_value(asx300_l, idx, 'ABG')
         else:
             self.logger.error(f"Couldn't find {ticker} in the ASX300 list")
-
-        asx300_l.remove('ABC')
