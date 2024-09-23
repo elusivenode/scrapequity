@@ -13,6 +13,11 @@ class ScrollScrapeSpiderSpider(scrapy.Spider):
 
     name = "scroll_n_scrape"
 
+    def __init__(self, param1=None, param2=None, *args, **kwargs):
+        super(ScrollScrapeSpiderSpider, self).__init__(*args, **kwargs)
+        self.runForTicker = param1
+        self.runStartDate = param2
+
     def start_requests(self):
 
         directory = "output/scraped_prices"
@@ -24,25 +29,40 @@ class ScrollScrapeSpiderSpider(scrapy.Spider):
             os.remove(f)
 
         asx300_file = self.get_latest_file("output/asx300")
-        asx300 = self.parse_first_column(asx300_file)[1:]
+        if self.runForTicker == "all":
+            asx300 = self.parse_first_column(asx300_file)[1:]
+        else:
+            asx300 = [self.runForTicker]
         self.ticker_tidying(asx300)
 
-        unix_epoch_start = int(datetime.strptime("2019-12-31","%Y-%m-%d").replace(tzinfo=timezone.utc).timestamp())
-        unix_epoch_end = int(datetime.strptime(datetime.now().strftime("%Y-%m-%d"),"%Y-%m-%d").replace(tzinfo=timezone.utc).timestamp())
+        unix_epoch_start = int(
+            datetime.strptime(f"{self.runStartDate}", "%Y-%m-%d")
+            .replace(tzinfo=timezone.utc)
+            .timestamp()
+        )
+        unix_epoch_end = int(
+            datetime.strptime(datetime.now().strftime("%Y-%m-%d"), "%Y-%m-%d")
+            .replace(tzinfo=timezone.utc)
+            .timestamp()
+        )
 
-        date_range = f'?period1={unix_epoch_start}&period2={unix_epoch_end}&interval=1d&filter=history&frequency=1d&includeAdjustedClose=true'
-        url_template = "https://au.finance.yahoo.com/quote/{ticker}.AX/history{date_range}"
+        date_range = f"?period1={unix_epoch_start}&period2={unix_epoch_end}&interval=1d&filter=history&frequency=1d&includeAdjustedClose=true"
+        url_template = (
+            "https://au.finance.yahoo.com/quote/{ticker}.AX/history{date_range}"
+        )
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
         }
 
-        #asx300 = asx300[0:16]
+        # asx300 = asx300[0:16]
         for batch in range(0, len(asx300), 8):
             urls = []
-            for ticker in asx300[batch:min(batch + 8, len(asx300))]:
+            for ticker in asx300[batch : min(batch + 8, len(asx300))]:
                 urls.append(url_template.format(ticker=ticker, date_range=date_range))
 
-            self.logger.info(f"Processing stocks {batch} to {min(batch + 8 - 1, len(asx300) - 1)} in the ASX300")
+            self.logger.info(
+                f"Processing stocks {batch + 1} to {min(batch + 8, len(asx300))} in the ASX300"
+            )
             for url in urls:
                 self.logger.info(f"Running: {url}")
             for url in urls:
@@ -52,17 +72,18 @@ class ScrollScrapeSpiderSpider(scrapy.Spider):
                     meta=dict(
                         playwright=True,
                         playwright_include_page=True,
-                        playwright_page_methods=[PageMethod("wait_for_selector", "table")],
+                        playwright_page_methods=[
+                            PageMethod("wait_for_selector", "table")
+                        ],
                     ),
                     callback=self.parse,
                     errback=self.errback,
                 )
-            
 
     async def parse(self, response):
 
         page = response.meta["playwright_page"]
-        scroll_height = await page.evaluate('() => document.body.scrollHeight')
+        scroll_height = await page.evaluate("() => document.body.scrollHeight")
 
         try:
             last_position = await page.evaluate("window.scrollY")
@@ -133,14 +154,18 @@ class ScrollScrapeSpiderSpider(scrapy.Spider):
             self.playwright_browser.close()
 
     def get_latest_file(self, directory):
-        files = [os.path.join(directory, f) for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f))]
-        
+        files = [
+            os.path.join(directory, f)
+            for f in os.listdir(directory)
+            if os.path.isfile(os.path.join(directory, f))
+        ]
+
         # Sort files by modification time
         files.sort(key=lambda x: os.path.getmtime(x), reverse=True)
-        
+
         # Return the most recent file
         return files[0] if files else None
-    
+
     def parse_first_column(self, file_path):
         first_column = []
 
@@ -166,9 +191,9 @@ class ScrollScrapeSpiderSpider(scrapy.Spider):
 
     def ticker_tidying(self, asx300_l):
         # logs an error if the ticker is not found in the ASX300 list
-        ticker = 'ABP'
+        ticker = "ABP"
         idx = self.find_index(asx300_l, ticker)
         if idx is not None:
-            self.change_list_value(asx300_l, idx, 'ABG')
+            self.change_list_value(asx300_l, idx, "ABG")
         else:
             self.logger.error(f"Couldn't find {ticker} in the ASX300 list")
