@@ -121,5 +121,8 @@ for filename in os.listdir(directory):
 cur.execute("CALL conformed.sp_merge_into_price_volume_scraped()")
 conn.commit()
 
+cur.execute("CALL conformed.sp_merge_into_daily_returns()")
+conn.commit()
+
 cur.close()
 conn.close()
