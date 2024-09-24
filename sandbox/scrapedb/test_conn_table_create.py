@@ -1,4 +1,4 @@
-import os
+import os, re
 import psycopg2
 from psycopg2 import sql
 
@@ -16,10 +16,10 @@ conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER, host=DB_HOST, port=DB_PORT
 cur = conn.cursor()
 
 
-def create_table():
-    drop_table_query = "DROP TABLE IF EXISTS staging.scraped_data;"
+def create_stage_tables():
+    drop_table_query = "DROP TABLE IF EXISTS staging.scraped_data_price_volume;"
     create_table_query = """
-    CREATE TABLE staging.scraped_data (
+    CREATE TABLE staging.scraped_data_price_volume (
         id SERIAL PRIMARY KEY,
         ticker VARCHAR(10),
         date DATE,
@@ -35,18 +35,39 @@ def create_table():
     cur.execute(create_table_query)
     conn.commit()
 
+    drop_table_query = "DROP TABLE IF EXISTS staging.scraped_data_dividend;"
+    create_table_query = """
+    CREATE TABLE staging.scraped_data_dividend (
+        id SERIAL PRIMARY KEY,
+        ticker VARCHAR(10),
+        date DATE,
+        dividend FLOAT
+    );
+    """
+    cur.execute(drop_table_query)
+    cur.execute(create_table_query)
+    conn.commit()
+
 
 # Function to insert data into the table
-def insert_data(data):
-    insert_query = """
-    INSERT INTO staging.scraped_data (ticker, date, open, high, low, close, adj_close, volume)
-    VALUES (%s, %s, %s, %s, %s, %s, %s, %s);
-    """
+def insert_data(target, data):
+    if target == "scraped_data_price_volume":
+        insert_query = """
+        INSERT INTO staging.scraped_data_price_volume (ticker, date, open, high, low, close, adj_close, volume)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s);
+        """
+
+    elif target == "scraped_data_dividend":
+        insert_query = """
+        INSERT INTO staging.scraped_data_dividend (ticker, date, dividend)
+        VALUES (%s, %s, %s);
+        """
+
     cur.execute(insert_query, data)
     conn.commit()
 
 
-create_table()
+create_stage_tables()
 
 ct = 1
 for filename in os.listdir(directory):
@@ -73,6 +94,7 @@ for filename in os.listdir(directory):
                     volume = None if volume_str == "-" else int(volume_str)
                     # Insert data into the database
                     insert_data(
+                        "scraped_data_price_volume",
                         (
                             ticker_,
                             date,
@@ -82,9 +104,22 @@ for filename in os.listdir(directory):
                             close_price,
                             adj_close,
                             volume,
-                        )
+                        ),
+                    )
+                if len(columns) == 2 and "Dividend" in columns[1]:
+                    # Convert data types as needed
+                    ticker_ = ticker
+                    date = columns[0]
+                    dividend = float(re.match(r"(\d+(\.\d+)?)", columns[1]).group(1))
+                    # Insert data into the database
+                    insert_data(
+                        "scraped_data_dividend",
+                        (ticker_, date, dividend),
                     )
     ct += 1
+
+cur.execute("CALL conformed.sp_merge_into_price_volume_scraped()")
+conn.commit()
 
 cur.close()
 conn.close()
